@@ -1,0 +1,81 @@
+a. Create Table Queries
+-------------------------------Start sql
+
+-- Create Departments Table
+CREATE TABLE Departments (
+    DepartmentID INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(100) NOT NULL,
+    Location VARCHAR(100) NOT NULL
+);
+
+-- Create Doctors Table
+CREATE TABLE Doctors (
+    DoctorID INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(100) NOT NULL,
+    Specialization VARCHAR(100) NOT NULL,
+    Phone VARCHAR(15) NOT NULL,
+    DepartmentID INT,
+    FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID)
+);
+
+-- Create Patients Table
+CREATE TABLE Patients (
+    PatientID INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(100) NOT NULL,
+    Age INT NOT NULL,
+    Gender VARCHAR(10) NOT NULL,
+    Phone VARCHAR(15) NOT NULL
+);
+
+-- Create Appointments Table
+CREATE TABLE Appointments (
+    AppointmentID INT PRIMARY KEY AUTO_INCREMENT,
+    Date DATE NOT NULL,
+    Time TIME NOT NULL,
+    Status VARCHAR(50) NOT NULL,
+    DoctorID INT,
+    PatientID INT,
+    FOREIGN KEY (DoctorID) REFERENCES Doctors(DoctorID),
+    FOREIGN KEY (PatientID) REFERENCES Patients(PatientID)
+);
+
+
+-------------------------------end sql
+
+b. Insert Dummy Records
+--------------------------start Dummy Records-------
+
+
+-- Insert into Departments
+INSERT INTO Departments (Name, Location) VALUES 
+('Cardiology', 'Building A'),
+('Neurology', 'Building B'),
+('Pediatrics', 'Building C'),
+('Orthopedics', 'Building D'),
+('Radiology', 'Building E');
+
+-- Insert into Doctors
+INSERT INTO Doctors (Name, Specialization, Phone, DepartmentID) VALUES
+('Dr. Alice Smith', 'Cardiologist', '1234567890', 1),
+('Dr. Bob Brown', 'Neurologist', '9876543210', 2),
+('Dr. Carol White', 'Pediatrician', '5556667777', 3),
+('Dr. David Black', 'Orthopedist', '2223334444', 4),
+('Dr. Emma Green', 'Radiologist', '1112223333', 5);
+
+-- Insert into Patients
+INSERT INTO Patients (Name, Age, Gender, Phone) VALUES
+('John Doe', 45, 'Male', '5551234567'),
+('Jane Roe', 34, 'Female', '5559876543'),
+('Sam Hill', 28, 'Male', '5551112233'),
+('Lisa Ray', 50, 'Female', '5554445566'),
+('Tom Gale', 39, 'Male', '5558889990');
+
+-- Insert into Appointments
+INSERT INTO Appointments (Date, Time, Status, DoctorID, PatientID) VALUES
+('2024-01-15', '10:00:00', 'Confirmed', 1, 1),
+('2024-01-16', '11:00:00', 'Pending', 2, 2),
+('2024-01-17', '09:30:00', 'Cancelled', 3, 3),
+('2024-01-18', '14:00:00', 'Confirmed', 4, 4),
+('2024-01-19', '15:30:00', 'Pending', 5, 5);
+
+--------------------------end Dummy Records-------
